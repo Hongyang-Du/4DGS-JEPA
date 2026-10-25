@@ -1,0 +1,16 @@
+{
+  "variant": "+SE(3) composition",
+  "seed": 0,
+  "best_epoch": 10,
+  "best_val_score": 0.030712442472577095,
+  "best_val_direct_fde": 0.030807839706540108,
+  "best_val_rollout_fde": 0.030617045238614082,
+  "direct_fde": 0.06504450481122312,
+  "rollout_fde": 0.06468055416973165,
+  "cov_err": 0.1964548798994376,
+  "transform_target": 0.25518246264889455,
+  "transform_target_rollout": 0.2551626315913521,
+  "transform_dc": 0.0016562694652701537,
+  "d_match": 0.0017798427409919289,
+  "train_minutes": 10.516684766610464
+}

@@ -1,0 +1,20 @@
+{
+  "variant": "Endpoint + Composition",
+  "seed": 0,
+  "best_epoch": 10,
+  "best_val_score": 0.026904040947556496,
+  "best_val_direct_fde": 0.02683226391673088,
+  "best_val_rollout_fde": 0.02697581797838211,
+  "direct_fde": 0.028404506133460343,
+  "rollout_fde": 0.028807610221496686,
+  "delta_roll": 0.00040310408803634346,
+  "comp_err": 0.0010184357636476345,
+  "geo_comp_err": 0.005863966653278967,
+  "unseen_fde": 0.03387535485298707,
+  "unseen_direct_fde": 0.033891073468392,
+  "heldout_comp_err": 0.004836307224953392,
+  "heldout_geo_comp_err": 0.010564653511914329,
+  "unseen_seg_comp_err": 0.0010149940816611492,
+  "unseen_seg_geo_comp_err": 0.0067795163856480475,
+  "train_minutes": 7.798621857166291
+}

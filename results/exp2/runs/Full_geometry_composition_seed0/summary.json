@@ -1,0 +1,16 @@
+{
+  "variant": "Full geometry composition",
+  "seed": 0,
+  "best_epoch": 10,
+  "best_val_score": 0.031087267212569714,
+  "best_val_direct_fde": 0.031171606853604317,
+  "best_val_rollout_fde": 0.03100292757153511,
+  "direct_fde": 0.06535893316285159,
+  "rollout_fde": 0.06508163608109149,
+  "cov_err": 0.19672047773089546,
+  "transform_target": 0.2542338459155498,
+  "transform_target_rollout": 0.2542237789155199,
+  "transform_dc": 0.0018104969158929845,
+  "d_match": 0.0013634330089889073,
+  "train_minutes": 10.823619143168132
+}

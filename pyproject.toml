@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gsjepa"
+version = "0.1.0"
+description = "4DGS-JEPA: temporally compositional joint-embedding prediction for dynamic Gaussian splatting (controlled experiments)"
+requires-python = ">=3.9"
+dependencies = ["torch>=2.0", "numpy", "pandas", "pyyaml"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

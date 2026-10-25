@@ -1,0 +1,129 @@
+{
+  "name": "exp2",
+  "out_dir": "results/exp2",
+  "num_groups": 3,
+  "gaussians_per_group": 6,
+  "seq_len": 24,
+  "context_len": 4,
+  "train_scenes": 512,
+  "val_scenes": 32,
+  "test_scenes": 48,
+  "token_dim": 48,
+  "horizon_dim": 16,
+  "transformer_heads": 4,
+  "transformer_layers": 1,
+  "transformer_dropout": 0.0,
+  "decoder_cov_stabilize": true,
+  "batch_size": 48,
+  "eval_batch_size": 64,
+  "epochs": 15,
+  "lr": 0.001,
+  "min_lr": 1e-05,
+  "weight_decay": 1e-05,
+  "ema_tau": 0.99,
+  "grad_clip": 1.0,
+  "lambda_geo": 5.0,
+  "lambda_path": 1.0,
+  "lambda_comp": 0.5,
+  "lambda_rep": 0.02,
+  "lambda_cov_rep": 0.05,
+  "var_floor": 0.5,
+  "lambda_gcomp_se3": 0.4,
+  "lambda_gcomp_match": 0.5,
+  "center_huber_delta": 0.1,
+  "cov_loss_weight": 0.25,
+  "geo_supervision": "both_routes",
+  "position_scale": 1.5,
+  "relative_position_scale": 0.2,
+  "velocity_scale": 0.05,
+  "acceleration_scale": 0.01,
+  "cov_delta_scale": 0.05,
+  "train_horizons": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "unseen_horizons": [],
+  "main_horizon": 8,
+  "train_partitions": {
+    "1": [
+      [
+        1
+      ]
+    ],
+    "2": [
+      [
+        1,
+        1
+      ]
+    ],
+    "4": [
+      [
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        2
+      ]
+    ],
+    "8": [
+      [
+        4,
+        4
+      ],
+      [
+        2,
+        2,
+        4
+      ]
+    ]
+  },
+  "primary_partitions": {
+    "1": [
+      1
+    ],
+    "2": [
+      1,
+      1
+    ],
+    "4": [
+      2,
+      2
+    ],
+    "8": [
+      4,
+      4
+    ]
+  },
+  "heldout_seen_segment_partitions": {},
+  "unseen_segment_partitions": {},
+  "partition_seed_offset": 200000,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "variants": {
+    "Latent composition only": {
+      "path": false,
+      "comp": true,
+      "gcomp_se3": false,
+      "gcomp_match": false
+    },
+    "+SE(3) composition": {
+      "path": false,
+      "comp": true,
+      "gcomp_se3": true,
+      "gcomp_match": false
+    },
+    "Full geometry composition": {
+      "path": false,
+      "comp": true,
+      "gcomp_se3": true,
+      "gcomp_match": true
+    }
+  }
+}

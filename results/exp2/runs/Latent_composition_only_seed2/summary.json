@@ -1,0 +1,16 @@
+{
+  "variant": "Latent composition only",
+  "seed": 2,
+  "best_epoch": 10,
+  "best_val_score": 0.0320855975151062,
+  "best_val_direct_fde": 0.0322323702275753,
+  "best_val_rollout_fde": 0.0319388248026371,
+  "direct_fde": 0.06886155677374262,
+  "rollout_fde": 0.06866487766353366,
+  "cov_err": 0.2027727755216452,
+  "transform_target": 0.27273710205768925,
+  "transform_target_rollout": 0.2721885326676644,
+  "transform_dc": 0.007821281721146826,
+  "d_match": 0.001972791133038043,
+  "train_minutes": 10.439877184232076
+}

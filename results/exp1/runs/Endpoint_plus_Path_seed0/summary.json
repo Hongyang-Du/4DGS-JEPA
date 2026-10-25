@@ -1,0 +1,20 @@
+{
+  "variant": "Endpoint + Path",
+  "seed": 0,
+  "best_epoch": 10,
+  "best_val_score": 0.030159350484609604,
+  "best_val_direct_fde": 0.030095867812633514,
+  "best_val_rollout_fde": 0.030222833156585693,
+  "direct_fde": 0.030897795288929514,
+  "rollout_fde": 0.0312281137390901,
+  "delta_roll": 0.0003303184501605855,
+  "comp_err": 0.000625977639446451,
+  "geo_comp_err": 0.00575716477465188,
+  "unseen_fde": 0.03710968971165876,
+  "unseen_direct_fde": 0.037153976454506986,
+  "heldout_comp_err": 0.0028733211624710703,
+  "heldout_geo_comp_err": 0.0094306214916287,
+  "unseen_seg_comp_err": 0.0006226292787873833,
+  "unseen_seg_geo_comp_err": 0.006470375695080759,
+  "train_minutes": 8.620743827025096
+}

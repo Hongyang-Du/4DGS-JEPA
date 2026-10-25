@@ -1,0 +1,20 @@
+{
+  "variant": "Endpoint + Path + Composition",
+  "seed": 2,
+  "best_epoch": 13,
+  "best_val_score": 0.0327104777097702,
+  "best_val_direct_fde": 0.032628681510686874,
+  "best_val_rollout_fde": 0.03279227390885353,
+  "direct_fde": 0.034687186992437676,
+  "rollout_fde": 0.035099771453249745,
+  "delta_roll": 0.0004125844608120696,
+  "comp_err": 0.0005747229679400334,
+  "geo_comp_err": 0.007257397565505623,
+  "unseen_fde": 0.041385155788306385,
+  "unseen_direct_fde": 0.041247750039940745,
+  "heldout_comp_err": 0.002662887543481655,
+  "heldout_geo_comp_err": 0.011570525070568785,
+  "unseen_seg_comp_err": 0.0005674018519433351,
+  "unseen_seg_geo_comp_err": 0.00876325672773722,
+  "train_minutes": 8.95242246389389
+}

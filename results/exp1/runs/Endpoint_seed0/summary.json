@@ -1,0 +1,20 @@
+{
+  "variant": "Endpoint",
+  "seed": 0,
+  "best_epoch": 11,
+  "best_val_score": 0.02908824384212494,
+  "best_val_direct_fde": 0.028894811868667603,
+  "best_val_rollout_fde": 0.029281675815582275,
+  "direct_fde": 0.03078952406753953,
+  "rollout_fde": 0.03144733103936932,
+  "delta_roll": 0.0006578069718297906,
+  "comp_err": 0.0027822274669933203,
+  "geo_comp_err": 0.006541322274160925,
+  "unseen_fde": 0.0372990368207236,
+  "unseen_direct_fde": 0.036771634546592116,
+  "heldout_comp_err": 0.01322692450425492,
+  "heldout_geo_comp_err": 0.013245009676514504,
+  "unseen_seg_comp_err": 0.0027016168111843467,
+  "unseen_seg_geo_comp_err": 0.007646034534095984,
+  "train_minutes": 6.735828121503194
+}

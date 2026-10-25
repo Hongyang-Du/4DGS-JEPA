@@ -1,0 +1,29 @@
+# Experiment 2 — geometry-level composition (paper Sec. 5.3, App. D.3).
+# Objective: L_end + 0.5 L_comp + 5 L_geo^ctrl + 0.02 L_rep [+ 0.4 L_gcomp^SE3] [+ 0.5 L_gcomp^match]
+kind: forecast
+name: exp2
+out_dir: results/exp2
+
+geo_supervision: both_routes     # direct AND composed routes supervised at every cumulative endpoint
+decoder_cov_stabilize: true      # symmetrize + 1e-6 I for stable recursive rollouts
+partition_seed_offset: 200000
+main_horizon: 8
+
+train_horizons: [1, 2, 4, 8]
+unseen_horizons: []
+train_partitions:
+  1: [[1]]
+  2: [[1, 1]]
+  4: [[2, 2], [1, 1, 2]]
+  8: [[4, 4], [2, 2, 4]]
+primary_partitions:
+  1: [1]
+  2: [1, 1]
+  4: [2, 2]
+  8: [4, 4]
+
+seeds: [0, 1, 2]
+variants:
+  Latent composition only: {comp: true}
+  +SE(3) composition: {comp: true, gcomp_se3: true}
+  Full geometry composition: {comp: true, gcomp_se3: true, gcomp_match: true}

@@ -1,0 +1,36 @@
+{
+  "name": "exp3",
+  "out_dir": "results/exp3",
+  "active_primitives": 24,
+  "reserve_slots": 6,
+  "num_groups": 4,
+  "semantic_dim": 6,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "trials_per_setting": 50,
+  "severities": [
+    0.1,
+    0.25,
+    0.4
+  ],
+  "sinkhorn_eps": 0.08,
+  "sinkhorn_iters": 200,
+  "sinkhorn_tol": 1e-07,
+  "dustbin_cost": 1.2,
+  "position_noise_std": 0.025,
+  "logscale_noise_std": 0.02,
+  "semantic_noise_std": 0.05,
+  "id_dropout_rates": [
+    0.0,
+    0.1,
+    0.25,
+    0.5
+  ],
+  "id_dropout_kind": "mixed",
+  "id_dropout_severity": 0.25,
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 12345
+}

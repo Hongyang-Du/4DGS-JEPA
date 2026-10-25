@@ -1,0 +1,19 @@
+# Experiment 3 — hybrid correspondence stress test (paper Sec. 5.4, App. D.4, Table 9).
+# No learning; NumPy only.
+kind: correspondence
+name: exp3
+out_dir: results/exp3
+
+active_primitives: 24
+reserve_slots: 6
+num_groups: 4
+semantic_dim: 6
+seeds: [0, 1, 2]
+trials_per_setting: 50
+severities: [0.10, 0.25, 0.40]
+sinkhorn_eps: 0.08
+sinkhorn_iters: 200
+sinkhorn_tol: 1.0e-7
+dustbin_cost: 1.2
+id_dropout_rates: [0.0, 0.10, 0.25, 0.50]
+id_dropout_severity: 0.25
