@@ -7,3 +7,5 @@ results/**/runs/*/best.pt
 results/**/*per_sample*.csv
 results/exp3/all_trials.csv
 results/exp3/id_dropout_trials.csv
+third_party/
+data/

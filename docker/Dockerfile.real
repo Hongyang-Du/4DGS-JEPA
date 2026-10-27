@@ -1,0 +1,16 @@
+# Real-data (D-NeRF) image: base image + ODE-GS front-end deps + CUDA Gaussian rasterizer.
+# Build from the repo root after scripts/setup_third_party.sh:
+#   docker build -t 4dgs-jepa:real -f docker/Dockerfile.real .
+FROM 4dgs-jepa:latest
+
+ENV TORCH_CUDA_ARCH_LIST="8.0;9.0" MAX_JOBS=16
+RUN pip install --no-cache-dir plyfile lpips pytorch-msssim torchmetrics omegaconf torchdiffeq torchode configargparse \
+        opencv-python-headless imageio imageio-ffmpeg tensorboard wandb pydantic gitpython
+# torchtyping<0.1.5 breaks on torch>=2.6 (torchode import); 0.1.5 pins an old torch, hence --no-deps.
+RUN pip install --no-cache-dir --no-deps torchtyping==0.1.5
+COPY third_party/ODE-GS/submodules /opt/submodules
+# Newer GCC no longer pulls in <cstdint> transitively.
+RUN sed -i '1i #include <cstdint>' /opt/submodules/depth-diff-gaussian-rasterization/cuda_rasterizer/rasterizer_impl.h \
+ && pip install --no-cache-dir --no-build-isolation /opt/submodules/depth-diff-gaussian-rasterization \
+ && sed -i '1i #include <cfloat>' /opt/submodules/simple-knn/simple_knn.cu \
+ && pip install --no-cache-dir --no-build-isolation /opt/submodules/simple-knn
