@@ -1,0 +1,15 @@
+{
+  "dt": 0.009999990463256836,
+  "stride": 1,
+  "horizon_frames": 20,
+  "num_gaussians": 18482,
+  "prefix_cams": 96,
+  "eval_cams": 24,
+  "prefix_times": 80,
+  "last_prefix_t": 0.7900000214576721,
+  "first_eval_t": 0.800000011920929,
+  "image_hw": [
+    800,
+    800
+  ]
+}

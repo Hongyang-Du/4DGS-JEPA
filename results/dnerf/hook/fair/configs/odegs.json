@@ -1,0 +1,1 @@
+{"d_model": 256, "latent_dim": 128, "ode_nhidden": 256, "decoder_nhidden": 256, "extrap_points": 10, "batch_size": 4096, "weight_decay": 0.0001, "warmup_frac": 0.05, "min_lr_ratio": 0.01, "obs_time_span": 0.29292958974838257, "obs_points": 30, "max_extrap_time_span": 0.20202040672302246, "lr": 0.001}

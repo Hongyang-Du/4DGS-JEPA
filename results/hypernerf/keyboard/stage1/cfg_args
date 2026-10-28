@@ -1,0 +1,1 @@
+Namespace(sh_degree=3, source_path='/data/HyperNeRF/misc/keyboard', model_path='/workspace/4DGS-JEPA/results/hypernerf/keyboard/stage1', images='images', resolution=-1, white_background=False, data_device='cuda', eval=True, load2gpu_on_the_fly=True, is_blender=False, is_6dof=False, max_eval_images=0)

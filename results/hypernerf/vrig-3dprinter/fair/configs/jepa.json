@@ -1,0 +1,1 @@
+{"token_dim": 192, "layers": 5, "heads": 6, "num_groups": 32, "cv_k": 0, "batch_contexts": 4, "gaussians_per_step": 1024, "weight_decay": 0.0001, "schedule": "cosine", "warmup_frac": 0.05, "min_lr_ratio": 0.01, "log_every": 1000, "context_len": 30, "context_stride": 3, "max_horizon": 20, "rollout_segment": 10.0, "lr": 0.001}
