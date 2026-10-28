@@ -49,7 +49,7 @@ Test PSNR / dyn-region PSNR, means over scenes, last checkpoint, seed 0:
     horizontal plane (ADE 1.84 at h = 40 vs Static 0.024); also in direct mode (17.23). Test PSNR drops with training
     (22.8 @18k → 16.8 @90k) while prefix val rises (32 → 37); the inner run is stable, so inner-split selection
     would not catch it. The group-translation bound (2·vmax·h, vmax = 7× vel_scale here) does not limit it.
-    Diagnostic: `logs/_diag_jj.py`.
+    Diagnostic: `scripts/diag/jepa_drift.py`.
 - Level II D-NeRF (inner): JEPA ADE_dyn/Static 0.512 (ODE-GS 0.673, rigid 0.481, CV 0.489); JEPA rollout accel/jerk
   2.4×/3.4× Stage 1 (direct 1.2×/0.9×). Composition: no divergence on D-NeRF; seg1/8 chains drift at long horizon
   on the full split (centre dist 2.1× forecast motion).
