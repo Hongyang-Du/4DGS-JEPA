@@ -3,13 +3,13 @@
 ## Meta
 - **Phase**: Experiment
 - **Target**: TBD
-- **Last Updated**: 2026-10-26
+- **Last Updated**: 2026-10-27
 - **Updated By**: dgx session
 
 ## Current Focus
-HyperNeRF ×6 controlled comparison done (`results/hypernerf/fair_summary.md`). Now running the same controlled
-protocol on all 8 D-NeRF scenes (protocol B, time_split 0.8), seed 0, every method on our own shared Stage 1:
-queue `results/dnerf/_queue`, per-scene reports `results/dnerf/<scene>/fair/report.md`.
+Controlled protocol-B benchmark done on HyperNeRF ×6 and D-NeRF ×8 (seed 0, shared Stage 1, last checkpoint).
+Summaries: `results/{hypernerf,dnerf}/fair_summary_tables.md`, `results/{hypernerf,dnerf}/level2_summary.md`;
+per-scene reports and videos in `results/<ds>/<scene>/fair/report.md`, `results/<ds>/<scene>/videos/`.
 
 ## Experiment Status
 | Run | Config | Status | Key Metric | Notes |
@@ -22,11 +22,37 @@ queue `results/dnerf/_queue`, per-scene reports `results/dnerf/<scene>/fair/repo
 | Eval cross-check | ODE-GS official `evaluate_deform_model` on our Stage 1 | done | identical to our eval (18.56) | gap to paper is Stage 1, not eval |
 | Group-rigid baseline (HyperNeRF ×6, mutant) | 32 k-means groups (= JEPA's), Kabsch over k frames, k on inner split | done | HyperNeRF test PSNR 16.36 (CV 16.20, Static 18.55); mutant 30.65 | in `fair/baselines/metrics.json` |
 | Level II diagnostics (HyperNeRF ×6) | `python -m gsjepa.real.consistency` | done | inner ADE_dyn/Static: JEPA 0.999, ODE-GS 0.989, rigid 2.04, CV 2.86 | `results/hypernerf/level2_summary.md` |
-| D-NeRF Stage 1 ×7 (+ mutant reused) | ODE-GS train_interpolation, 40k it, time_split 0.8, --is_blender | running | | `logs/stage1_<scene>.log` |
-| D-NeRF ×8, 90k, lr 1e-3 | full + inner runs, seed 0, horizon 0.2 | running | | queue `results/dnerf/_queue` |
+| D-NeRF Stage 1 ×7 (+ mutant reused) | ODE-GS train_interpolation, 40k it, time_split 0.8, --is_blender | done | | `logs/stage1_<scene>.log` |
+| D-NeRF ×8, 90k, lr 1e-3 | full + inner runs (32), seed 0, horizon 0.2 | done | test PSNR: JEPA 26.53, ODE-GS 24.03, Group-rigid 26.68, CV 26.36, Static 24.95 | `results/dnerf/fair_summary_tables.md`; 2 failure cases, see Key Results |
+| Level II diagnostics (D-NeRF ×8) | `python -m gsjepa.real.consistency` | done | inner ADE_dyn/Static: JEPA 0.512, ODE-GS 0.673, rigid 0.481, CV 0.489 | `results/dnerf/level2_summary.md` |
 
 ## Key Results
-- (pending 90k runs)
+Test PSNR / dyn-region PSNR, means over scenes, last checkpoint, seed 0:
+
+| method | HyperNeRF ×6 | dyn | D-NeRF ×8 | dyn | D-NeRF ×6 (excl. bouncingballs, jumpingjacks) |
+|---|---|---|---|---|---|
+| 4DGS-JEPA | 19.00 | 13.41 | 26.53 | 13.51 | 27.81 |
+| ODE-GS | 19.00 | 12.80 | 24.03 | 11.47 | 27.59 |
+| Deformable-GS query | 18.56 | 12.74 | 24.06 | 10.53 | 23.71 |
+| Static | 18.55 | 11.88 | 24.95 | 10.34 | 25.31 |
+| Group-rigid | 16.36 | 11.26 | 26.68 | 13.49 | 27.61 |
+| Constant velocity | 16.20 | 11.48 | 26.36 | 13.53 | 27.43 |
+
+- HyperNeRF: JEPA ties ODE-GS on full-image PSNR, +0.6 dB on the dynamic region; simple extrapolators fall below Static.
+- D-NeRF: simple extrapolators are strong (Group-rigid has the best mean). JEPA wins hellwarrior, lego, standup.
+- D-NeRF failure cases (reported as is, per protocol):
+  - ODE-GS bouncingballs full (6.12 dB): training collapsed at ~23k steps (pred loss 0.007 → 0.186 constant,
+    latent reg ~1e-15, renders identical to the untrained model). Only 1 of 28 ODE-GS runs; the official code's
+    best-test-PSNR checkpoint selection would hide it. Without both failure scenes JEPA leads ODE-GS by 0.2 dB
+    (27.81 vs 27.59), i.e. a tie with Group-rigid (27.61) and CV (27.43).
+  - JEPA jumpingjacks full (16.84 dB): best method for h ≤ 7 frames, then the whole body translates in the
+    horizontal plane (ADE 1.84 at h = 40 vs Static 0.024); also in direct mode (17.23). Test PSNR drops with training
+    (22.8 @18k → 16.8 @90k) while prefix val rises (32 → 37); the inner run is stable, so inner-split selection
+    would not catch it. The group-translation bound (2·vmax·h, vmax = 7× vel_scale here) does not limit it.
+    Diagnostic: `logs/_diag_jj.py`.
+- Level II D-NeRF (inner): JEPA ADE_dyn/Static 0.512 (ODE-GS 0.673, rigid 0.481, CV 0.489); JEPA rollout accel/jerk
+  2.4×/3.4× Stage 1 (direct 1.2×/0.9×). Composition: no divergence on D-NeRF; seg1/8 chains drift at long horizon
+  on the full split (centre dist 2.1× forecast motion).
 
 ## Decisions Made
 - 2026-10-25: Fair benchmark protocol (same Stage 1, inner-split tuning, last checkpoint, matched params ~4M) set up
@@ -63,6 +89,10 @@ queue `results/dnerf/_queue`, per-scene reports `results/dnerf/<scene>/fair/repo
   JEPA composition: stable for partitions ≥ 1/4 of the training horizon and random 2-6 piece partitions
   (composed ≈ direct target error), but chains of 1/8-horizon steps diverge at long horizons (3/6 scenes inner).
   Partitions are defined relative to the JEPA's max training horizon because frame counts differ per scene.
+- 2026-10-27: (user) D-NeRF failure cases (ODE-GS bouncingballs collapse, JEPA jumpingjacks drift) kept as is: no
+  reruns or extra seeds, no method changes; report the 8-scene means with a footnote giving the 6-scene means.
+- 2026-10-27: Fixed `fair_finalize_scene.sh` for D-NeRF: pass `--scene` and the dataset parent dir to `videos.py`
+  (it defaulted to mutant). Metrics unaffected.
 
 ## Open Questions
 - [ ] Why is the absolute PSNR on slice-banana 2–3 dB below the paper (Stage-1 seed/variance, or their eval)?
@@ -70,7 +100,9 @@ queue `results/dnerf/_queue`, per-scene reports `results/dnerf/<scene>/fair/repo
       Static. Is the 0.8–0.9 window atypical?
 
 ## Next Steps
-- [ ] D-NeRF: 32 runs (16 full + 16 inner) → finalize each scene → `scripts/fair_summary.py --dataset dnerf`
-- [ ] D-NeRF: run `consistency scene` per scene after its runs finish, then `consistency summary --dataset dnerf`
+- [x] D-NeRF: 32 runs (16 full + 16 inner) → finalize each scene → `scripts/fair_summary.py --dataset dnerf`
+- [x] D-NeRF: run `consistency scene` per scene after its runs finish, then `consistency summary --dataset dnerf`
+- [ ] JEPA long-horizon drift (jumpingjacks): test PSNR falls with training; consider a tighter translation bound or
+      drift regulariser, validated on the inner split only
 - [ ] JEPA composition diverges for fine partitions: check whether training-time composition covers short segments
 - [x] GaussianPredict / TiNeuVox: not trained (user, 2026-10-26). Baselines = ODE-GS, Deformable-GS query, Static, CV
